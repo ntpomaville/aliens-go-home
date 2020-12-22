@@ -10,7 +10,7 @@ export const pathFromBezierCurve = (cubicBezierCurve) => {
     `;
   };
 
-  
+
 export const radiansToDegrees = radians => ((radians * 180) / Math.PI);
 
 // https://math.stackexchange.com/questions/714378/find-the-angle-that-creating-with-y-axis-in-degrees
@@ -39,4 +39,17 @@ export const getCanvasPosition = (event) => {
   point.y = event.clientY;
   const { x, y } = point.matrixTransform(svg.getScreenCTM().inverse());
   return {x, y};
+};
+
+
+const degreesToRadian = degrees => ((degrees * Math.PI) / 180);
+
+export const calculateNextPosition = (x, y, angle, divisor = 300) => {
+  const realAngle = (angle * -1) + 90;
+  const stepsX = radiansToDegrees(Math.cos(degreesToRadian(realAngle))) / divisor;
+  const stepsY = radiansToDegrees(Math.sin(degreesToRadian(realAngle))) / divisor;
+  return {
+    x: x +stepsX,
+    y: y - stepsY,
+  }
 };

@@ -1,6 +1,7 @@
-import { MOVE_OBJECTS, START_GAME } from '../actions';
+import { MOVE_OBJECTS, SHOOT, START_GAME } from '../actions';
 import moveObjects from './moveObjects';
 import startGame from './startGame';
+import shoot from './shoot';
 
 const initialGameState = {
   started: false,
@@ -8,6 +9,7 @@ const initialGameState = {
   lives: 3,
   flyingObjects: [],
   lastObjectCreatedAt: new Date(),
+  cannonBalls: [],
 };
 
 const initialState = {
@@ -18,42 +20,15 @@ const initialState = {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case MOVE_OBJECTS:
-      return moveObjects(state, action);
+        return moveObjects(state, action);
     case START_GAME:
-      return startGame(state, initialGameState);
+        return startGame(state, initialGameState);
+    case SHOOT:
+        return shoot(state, action);
     default:
-      return state;
+        return state;
   }
 }
 
 export default reducer;
 
-
-
-/*import { MOVE_OBJECTS, START_GAME } from '../actions';
-import moveObjects from './moveObjects';
-import startGame from './startGame';
-
-const initialGameState = {
-    started: false,
-    kills: 0,
-    lives: 3,
-  };
-
-const initialState = {
-  angle: 45,
-  gamestate: initialGameState,
-};
-
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case MOVE_OBJECTS:
-      return moveObjects(state, action);
-    case START_GAME:
-      return startGame(state, initialGameState);
-    default:
-      return state;
-  }
-}
-
-export default reducer;*/
